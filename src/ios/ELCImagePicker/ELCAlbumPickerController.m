@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	
-	[self.navigationItem setTitle:@"Loading..."];
+	[self.navigationItem setTitle:@"加载中..."];
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
 	[self.navigationItem setRightBarButtonItem:cancelButton];
@@ -53,7 +53,7 @@
                 NSString *sGroupPropertyName = (NSString *)[group valueForProperty:ALAssetsGroupPropertyName];
                 NSUInteger nType = [[group valueForProperty:ALAssetsGroupPropertyType] intValue];
                 
-                if ([[sGroupPropertyName lowercaseString] isEqualToString:@"camera roll"] && nType == ALAssetsGroupSavedPhotos) {
+                if ([[sGroupPropertyName lowercaseString] isEqualToString:@"相簿"] && nType == ALAssetsGroupSavedPhotos) {
                     [self.assetGroups insertObject:group atIndex:0];
                 }
                 else {
@@ -67,10 +67,10 @@
             // Group Enumerator Failure Block
             void (^assetGroupEnumberatorFailure)(NSError *) = ^(NSError *error) {
                 
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Album Error: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"相簿出错: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alert show];
                 
-                NSLog(@"A problem occured %@", [error description]);	                                 
+                NSLog(@"异常：%@", [error description]);	                                 
             };	
                     
             // Enumerate Albums
@@ -85,7 +85,7 @@
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:@"Select an Album"];
+	[self.navigationItem setTitle:@"选择一个相簿"];
 }
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount
